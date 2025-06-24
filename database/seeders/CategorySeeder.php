@@ -10,7 +10,13 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        $categories = ['Tech', 'Arts', 'Business', 'Communication', 'Enginnering'];
+        $categories = [
+            'Technology',
+            'Arts & Culture',
+            'Business',
+            'Communication',
+            'Engineering'
+        ];
 
         foreach ($categories as $name) {
             Category::firstOrCreate(

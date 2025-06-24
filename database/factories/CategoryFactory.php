@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
@@ -11,17 +12,21 @@ use App\Models\Category;
 class CategoryFactory extends Factory
 {
     protected $model = Category::class;
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+
     public function definition(): array
     {
+        $categoryName = $this->faker->randomElement([
+            'Technology',
+            'Arts & Culture',
+            'Business',
+            'Communication',
+            'Engineering'
+        ]);
+
         return [
-        'category_name' => $this->faker->randomElement(['News', 'Review', 'Podcast', 'Opinion', 'Lifestyle']),
-        'slug' => $this->faker->slug(),
-        'description' => $this->faker->sentence(),
+            'category_name' => $categoryName,
+            'slug' => Str::slug($categoryName),
+            'description' => $this->faker->sentence(),
         ];
     }
 }
