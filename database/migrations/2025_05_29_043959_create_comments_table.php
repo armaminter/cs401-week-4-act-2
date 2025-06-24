@@ -10,17 +10,23 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->text('comment_content')->comment('the comment for the content');
-            $table->timestamp('comment_date')->comment('date of the comment');
-            $table->string('reviewer_name')->comment('the name of the reviewer');
-            $table->string('reviewer_email')->comment('the email of the reviewer');
-            $table->boolean('is_hidden')->comment('false');
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('comments', function (Blueprint $table) {
+        $table->id();
+        $table->text('comment_content')->comment('the comment for the content');
+        $table->timestamp('comment_date')->comment('date of the comment');
+        $table->string('reviewer_name')->comment('the name of the reviewer');
+        $table->string('reviewer_email')->comment('the email of the reviewer');
+        $table->boolean('is_hidden')->default(false)->comment('whether the comment is hidden');
+        
+        // Foreign keys
+        $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        $table->foreignId('post_id')->constrained()->onDelete('cascade');
+
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.

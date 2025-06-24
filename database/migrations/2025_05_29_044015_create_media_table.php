@@ -15,12 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('file_name')->comment('name of the file');
             $table->string('file_type')->comment('type of the file');
-            $table->integer('file_size')->comment('size of the file')->nullable;
+            $table->integer('file_size')->comment('size of the file')->nullable();
             $table->string('url')->comment('url of the media');
             $table->timestamp('upload_date')->comment('date of publication');
             $table->string('description')->comment('description of the media');
+        
+            $table->foreignId('post_id')->constrained()->onDelete('cascade');
+        
             $table->timestamps();
         });
+        
     }
 
     /**
